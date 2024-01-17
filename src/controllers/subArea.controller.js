@@ -3,21 +3,26 @@ const { QueryTypes } = require("sequelize");
 
 const getSubA = async (req, res) => {
     try {
+        // Obténgo el valor del área desde los parámetros de la solicitud
+        const { area } = req.query;
+
+        // Ejecuto la consulta SQL utilizando el valor del área
         const result = await sequelize.query(
-            `select distinct SUBAREA VAL, SUBAREA DIS from (
-                select distinct AREA_1 AREA, SUBAREA_1 SUBarea
-                from DH_GESTUDIANTE
+            `SELECT DISTINCT SUBAREA AS VAL, SUBAREA AS DIS
+            FROM (
+                SELECT DISTINCT AREA_1 AS AREA, SUBAREA_1 AS SUBAREA
+                FROM DH_GESTUDIANTE
                 UNION
-                select distinct AREA_2, SUBAREA_2
-                from DH_GESTUDIANTE
+                SELECT DISTINCT AREA_2, SUBAREA_2
+                FROM DH_GESTUDIANTE
                 UNION
-                select distinct AREA_3, SUBAREA_3
-                from DH_GESTUDIANTE
+                SELECT DISTINCT AREA_3, SUBAREA_3
+                FROM DH_GESTUDIANTE
             )
-            WHERE AREA = :P53_AREA_1`, // Agrega el valor del parámetro
+            WHERE AREA = :area`,
             {
                 type: QueryTypes.SELECT,
-                replacements: { P53_AREA_1: 'valor_del_parametro' }, // Reemplaza 'valor_del_parametro' con el valor real
+                replacements: { area }, // Uso el valor del área obtenido de la solicitud
                 logging: false,
             }
         );

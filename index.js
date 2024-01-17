@@ -5,10 +5,10 @@ const dotenv = require('dotenv');
 const instituciones = require('./src/routes/institucion.routes.js');
 const area = require('./src/routes/area.routes.js');
 const subArea = require('./src/routes/subArea.routes.js');
-const app = express();
 const search = require('./src/routes/buscador.routes.js');
+const espacio = require('./src/routes/espacio.routes.js');
 
-
+const app = express();
 dotenv.config();
 
 // Middlewares
@@ -26,6 +26,8 @@ app.use('/api', instituciones);
 app.use('/api', area);
 app.use('/api', subArea);
 app.use('/api', search);
+app.use('/api', espacio);
+
 
 //connection;
 const start = async () => {
