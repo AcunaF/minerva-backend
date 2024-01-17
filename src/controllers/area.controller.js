@@ -38,14 +38,3 @@ module.exports = {
 
 
 
-/*select distinct area VAL, AREA DIS from (
-select distinct AREA_1 area
-  from DH_GESTUDIANTE
-UNION
-select distinct AREA_2
-  from DH_GESTUDIANTE
-UNION
-select distinct AREA_3
-  from DH_GESTUDIANTE
-)
-order by 1*/
