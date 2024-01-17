@@ -6,15 +6,12 @@ const getEspacio = async (req, res) => {
         const { area } = req.query; // Obtén el valor del parámetro de área desde la consulta
 
         const result = await sequelize.query(
-            `SELECT DISTINCT ESPACIO_FORMATIVO VAL, ESPACIO_FORMATIVO DIS
-            FROM (
-                -- Subconsultas aquí
-            ) 
-            WHERE AREA = :P53_AREA_1
-            AND ESPACIO_FORMATIVO IS NOT NULL;`, // Agrega la condición para ESPACIO_FORMATIVO no sea nulo
+            `SELECT ESPACIO_FORMATIVO
+                FROM DH_GESTUDIANTE
+                WHERE trim(AREA_1) = :area AND SUBAREA_1 IS NOT NULL;`, // Utiliza :area en lugar de P53_AREA_1
             {
                 type: QueryTypes.SELECT,
-                replacements: { P53_AREA_1: area }, // Utiliza el valor del parámetro proporcionado en la consulta
+                replacements: { area }, // Utiliza el valor del parámetro proporcionado en la consulta
                 logging: false,
             }
         );
