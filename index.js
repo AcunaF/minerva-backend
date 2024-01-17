@@ -7,6 +7,10 @@ const area = require('./src/routes/area.routes.js');
 const subArea = require('./src/routes/subArea.routes.js');
 const search = require('./src/routes/buscador.routes.js');
 const espacio = require('./src/routes/espacio.routes.js');
+const gestion = require('./src/routes/gestion.routes.js');
+const modalidad = require('./src/routes/modalidad.routes.js');
+const horarios = require('./src/routes/franjaHoraria.routes.js');
+const duracion = require('./src/routes/duracion.routes.js');
 
 const app = express();
 dotenv.config();
@@ -27,6 +31,10 @@ app.use('/api', area);
 app.use('/api', subArea);
 app.use('/api', search);
 app.use('/api', espacio);
+app.use('/api', gestion);
+app.use('/api', modalidad);
+app.use('/api', horarios);
+app.use('/api', duracion);
 
 
 //connection;
