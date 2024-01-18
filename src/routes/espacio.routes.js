@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const espController = require("../controllers/gestion.controller.js");
+const espController = require("../controllers/espacio.controller.js");
 
-router.get("/espacio", espController.getGestion);
+router.get("/espacio", espController.getEspacio);
 
 module.exports = router;

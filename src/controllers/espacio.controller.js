@@ -3,15 +3,15 @@ const { QueryTypes } = require("sequelize");
 
 const getEspacio = async (req, res) => {
     try {
-        const { area } = req.query; // Obtén el valor del parámetro de área desde la consulta
+        const { keyword } = req.query; // Obtén la palabra clave desde los parámetros de la consulta
 
         const result = await sequelize.query(
             `SELECT ESPACIO_FORMATIVO
-                FROM DH_GESTUDIANTE
-                WHERE trim(AREA_1) = :area AND SUBAREA_1 IS NOT NULL;`, // Utiliza :area en lugar de P53_AREA_1
+            FROM DH_GESTUDIANTE
+            WHERE trim(AREA_1) = :keyword AND SUBAREA_1 IS NOT NULL;`,
             {
                 type: QueryTypes.SELECT,
-                replacements: { area }, // Utiliza el valor del parámetro proporcionado en la consulta
+                replacements: { keyword },
                 logging: false,
             }
         );
