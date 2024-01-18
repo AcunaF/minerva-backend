@@ -3,23 +3,22 @@ const { QueryTypes } = require("sequelize");
 
 const getDuracion = async (req, res) => {
     try {
-        const { area } = req.query; // Obtén el valor del parámetro de área desde la consulta
-
-        const result = await sequelize.query(
+        const { area } = req.query;
+               const result = await sequelize.query(
             `SELECT DURACION
                 FROM DH_GESTUDIANTE
-                WHERE trim (AREA_1) =  'ARTE' AND SUBAREA_1 IS NOT NULL;`, // Utiliza :area en lugar de P53_AREA_1
+                WHERE trim(AREA_1) = :area AND SUBAREA_1 IS NOT NULL;`,
             {
                 type: QueryTypes.SELECT,
-                replacements: { area }, // Utiliza el valor del parámetro proporcionado en la consulta
+                replacements: { area },
                 logging: false,
             }
         );
 
         res.status(200).send(result);
     } catch (error) {
-        console.error("Error al obtener ESPACIO_FORMATIVO: ", error);
-        res.status(500).json({ error: "Error al obtener ESPACIO_FORMATIVO" });
+        console.error("Error al obtener la duración: ", error);
+        res.status(500).json({ error: "Error al obtener la duración" });
     }
 };
 

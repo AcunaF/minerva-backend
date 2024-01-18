@@ -8,7 +8,7 @@ const getGestion = async (req, res) => {
         const result = await sequelize.query(
             `SELECT GESTION
                 FROM DH_GESTUDIANTE
-                WHERE trim (AREA_1) =  'ARTE' AND SUBAREA_1 IS NOT NULL;`, // Utiliza :area en lugar de P53_AREA_1
+                WHERE trim (AREA_1) = :area  AND SUBAREA_1 IS NOT NULL;`, // Utiliza :area en lugar de P53_AREA_1
             {
                 type: QueryTypes.SELECT,
                 replacements: { area }, // Utiliza el valor del parámetro proporcionado en la consulta
