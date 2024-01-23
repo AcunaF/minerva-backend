@@ -6,17 +6,18 @@ const { QueryTypes } = require("sequelize");
 const getArea = async (req, res) => {
     try {
         const result = await sequelize.query(
-            `select distinct area VAL, AREA DIS from (
-select distinct AREA_1 area
-  from DH_GESTUDIANTE
-UNION
-select distinct AREA_2
-  from DH_GESTUDIANTE
-UNION
-select distinct AREA_3
-  from DH_GESTUDIANTE
-)
-order by 1`,
+            `  SELECT DISTINCT TRIM(UPPER(AREA_1)) AS area
+    FROM DH_GESTUDIANTE
+    WHERE AREA_1 IS NOT NULL
+    UNION
+    SELECT DISTINCT TRIM(UPPER(AREA_2)) AS area
+    FROM DH_GESTUDIANTE
+    WHERE AREA_2 IS NOT NULL
+    UNION
+    SELECT DISTINCT TRIM(UPPER(AREA_3)) AS area
+    FROM DH_GESTUDIANTE
+    WHERE AREA_3 IS NOT NULL
+    order by 1`,
             {
                 type: QueryTypes.SELECT,
                 logging: false,

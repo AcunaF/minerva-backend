@@ -15,7 +15,6 @@ const getGestion = async (req, res) => {
                 logging: false,
             }
         );
-
         res.status(200).send(result);
     } catch (error) {
         console.error("Error al obtener ESPACIO_FORMATIVO: ", error);

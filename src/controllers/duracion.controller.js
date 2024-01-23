@@ -5,7 +5,7 @@ const getDuracion = async (req, res) => {
     try {
         const { area } = req.query;
                const result = await sequelize.query(
-            `SELECT DURACION
+            `SELECT DISTINCT DURACION
                 FROM DH_GESTUDIANTE
                 WHERE trim(AREA_1) = :area AND SUBAREA_1 IS NOT NULL;`,
             {
@@ -25,3 +25,4 @@ const getDuracion = async (req, res) => {
 module.exports = {
     getDuracion,
 };
+

@@ -3,10 +3,8 @@ const { QueryTypes } = require("sequelize");
 
 const getSubA = async (req, res) => {
     try {
-        // Obténgo el valor del área desde los parámetros de la solicitud
         const { area } = req.query;
 
-        // Ejecuto la consulta SQL utilizando el valor del área
         const result = await sequelize.query(
             `SELECT DISTINCT SUBAREA AS VAL, SUBAREA AS DIS
             FROM (
@@ -22,7 +20,7 @@ const getSubA = async (req, res) => {
             WHERE AREA = :area`,
             {
                 type: QueryTypes.SELECT,
-                replacements: { area }, // Uso el valor del área obtenido de la solicitud
+                replacements: { area },
                 logging: false,
             }
         );

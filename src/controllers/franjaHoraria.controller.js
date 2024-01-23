@@ -6,10 +6,14 @@ const getHorarios = async (req, res) => {
         const { keyword } = req.query; // Obtén la palabra clave desde los parámetros de la consulta
 
         const result = await sequelize.query(
-            `SELECT FRANJA_HORARIA
-                FROM DH_GESTUDIANTE
-                WHERE trim(AREA_1) = :keyword AND SUBAREA_1 IS NOT NULL;`,
-            {
+            `  SELECT DISTINCT FRANJA_HORARIA
+        FROM DH_GESTUDIANTE
+        WHERE trim(AREA_1) = :keyword AND SUBAREA_1 IS NOT NULL;`,
+
+
+
+
+        {
                 type: QueryTypes.SELECT,
                 replacements: { keyword },
                 logging: false,
