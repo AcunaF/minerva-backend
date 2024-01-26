@@ -6,7 +6,7 @@ const getGestion = async (req, res) => {
         const { area } = req.query; // Obtén el valor del parámetro de área desde la consulta
 
         const result = await sequelize.query(
-            `SELECT GESTION
+            `SELECT DISTINCT GESTION
                 FROM DH_GESTUDIANTE
                 WHERE trim (AREA_1) = :area  AND SUBAREA_1 IS NOT NULL;`, // Utiliza :area en lugar de P53_AREA_1
             {

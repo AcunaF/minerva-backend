@@ -11,19 +11,20 @@ const gestion = require('./src/routes/gestion.routes.js');
 const modalidad = require('./src/routes/modalidad.routes.js');
 const horarios = require('./src/routes/franjaHoraria.routes.js');
 const duracion = require('./src/routes/duracion.routes.js');
-const filtro = require('./src/routes/searchWhitFilter.routes');
+const filter = require('./src/routes/searchWhitFilter.routes');
 
 const app = express();
 dotenv.config();
 
-// Middlewares
+// Middleware CORS utilizando la biblioteca 'cors'
 app.use(cors({
     origin: 'http://172.16.1.48:3000',
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
 }));
+
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 //routes
@@ -36,7 +37,7 @@ app.use('/api', gestion);
 app.use('/api', modalidad);
 app.use('/api', horarios);
 app.use('/api', duracion);
-app.use('/api', filtro);
+app.use('/api', filter);
 
 
 //connection;

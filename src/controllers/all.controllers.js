@@ -1,4 +1,4 @@
-const {sequelize} = require("../model/connect/dataBase.js");
+/*const {sequelize} = require("../model/connect/dataBase.js");
 const {QueryTypes} = require("sequelize");
 
 const getEspacio = async (req, res) => {
@@ -236,3 +236,5 @@ module.exports = {
     getModalidad,
     getSubA,
 };
+
+ */
