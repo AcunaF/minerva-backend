@@ -3,16 +3,24 @@ const { QueryTypes } = require("sequelize");
 
 const getEspacio = async (req, res) => {
     try {
-        const { area, subArea } = req.query; // Obtén los valores de área y subárea desde los parámetros de la consulta
+        const  area  = req.query.area
+        const  subarea  = req.query.subarea // Obtén los valores de área y subárea desde los parámetros de la consulta
 
         const result = await sequelize.query(
-            ` SELECT ESPACIO_FORMATIVO
+            ` 
+          SELECT ESPACIO_FORMATIVO 
         FROM DH_GESTUDIANTE
-        WHERE TRIM(UPPER(AREA_1)) LIKE UPPER('%${area}%') AND TRIM(UPPER(SUBAREA_1)) LIKE UPPER('%${subArea}%') AND SUBAREA_1 IS NOT NULL;`,
+        WHERE NLSSORT(UPPER(AREA_1), 'NLS_SORT=BINARY_AI') LIKE '%' || NLSSORT(UPPER(:area), 'NLS_SORT=BINARY_AI') || '%'
+        AND NLSSORT(UPPER(SUBAREA_1), 'NLS_SORT=BINARY_AI') LIKE '%' || NLSSORT(UPPER(:subarea), 'NLS_SORT=BINARY_AI') || '%'
+                
+                `,
 
             {
                 type: QueryTypes.SELECT,
-                replacements: { area, subArea },
+                replacements: {
+                    area: area || null,
+                    subarea: subarea || null,
+                },
                 logging: false,
             }
         );
