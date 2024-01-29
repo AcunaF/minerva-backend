@@ -1,16 +1,10 @@
 const { sequelize } = require("../model/connect/dataBase.js");
 const { QueryTypes } = require("sequelize");
 
+
 const getSearchWithFilters = async (req, res) => {
     try {
-        const institucion = req.query.institucion;
-        const area = req.query.area;
-        const subarea = req.query.subarea;
-        const espacioFormativo = req.query.espacioFormativo;
-        const gestion = req.query.gestion;
-        const modalidad = req.query.modalidad;
-        const franjaHoraria = req.query.franjaHoraria;
-        const duracion = req.query.duracion;
+        const formData = req.query;  // Utiliza formData directamente del cuerpo del formulario
 
         const result = await sequelize.query(`
             SELECT DISTINCT 
@@ -39,14 +33,14 @@ const getSearchWithFilters = async (req, res) => {
         `, {
             type: QueryTypes.SELECT,
             replacements: {
-                institucion: institucion || null,
-                area: area || null,
-                subarea: subarea || null,
-                espacioFormativo: espacioFormativo || null,
-                gestion: gestion || null,
-                modalidad: modalidad || null,
-                franjaHoraria: franjaHoraria || null,
-                duracion: duracion || null
+                institucion: formData.institucion || null,
+                area: formData.area || null,
+                subarea: formData.subarea || null,
+                espacioFormativo: formData.espacioFormativo || null,
+                gestion: formData.gestion || null,
+                modalidad: formData.modalidad || null,
+                franjaHoraria: formData.franjaHoraria || null,
+                duracion: formData.duracion || null
             },
             logging: false,
         });

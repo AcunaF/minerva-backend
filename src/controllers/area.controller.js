@@ -1,7 +1,5 @@
 const { sequelize } = require("../model/connect/dataBase.js");
 const { QueryTypes } = require("sequelize");
-
-
 //ok
 const getArea = async (req, res) => {
     try {
