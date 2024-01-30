@@ -12,6 +12,10 @@ const modalidad = require('./src/routes/modalidad.routes.js');
 const horarios = require('./src/routes/franjaHoraria.routes.js');
 const duracion = require('./src/routes/duracion.routes.js');
 const filter = require('./src/routes/searchWhitFilter.routes');
+const details = require('./src/routes/details.routes.js');
+const name = require('./src/routes/name.routes.js');
+const address = require('./src/routes/address.routes.js');
+const level = require('./src/routes/nivel.routes.js');
 
 const app = express();
 dotenv.config();
@@ -38,6 +42,10 @@ app.use('/api', modalidad);
 app.use('/api', horarios);
 app.use('/api', duracion);
 app.use('/api', filter);
+app.use('/api', details);
+app.use('/api', name);
+app.use('/api',address);
+app.use('/api',level);
 
 
 //connection;
