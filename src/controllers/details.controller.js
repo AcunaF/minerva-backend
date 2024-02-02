@@ -4,19 +4,36 @@ const { QueryTypes } = require("sequelize");
 const getDetails = async (req, res) => {
     try {
         const formData = req.query;
+
+        const cleanData = {
+            institucion: formData.institucion || null,
+            area: formData.area || null,
+            subarea: formData.subarea || null,
+            espacioFormativo: formData.espacioFormativo || null,
+            gestion: formData.gestion || null,
+            modalidad: formData.modalidad || null,
+            franjaHoraria: formData.franjaHoraria || null,
+            duracion: formData.duracion || null,
+        };
+
         const result = await sequelize.query(`  
   
   SELECT DISTINCT 
                   NOMBRE,
-                  AREA_1,
-                  SUBAREA_1,
-                  INSTITUCION,
                   ESPACIO_FORMATIVO,
+                  AREA_1,
+                  NIVEL,
+                  INSTITUCION,
                   GESTION,
-                  MODALIDAD,
+                  MODALIDAD,              
                   DURACION,
-                  FRANJA_HORARIA
-    
+                  FRANJA_HORARIA,
+                  CONTACTO,
+                  MAIL,
+                  WEB,
+                  REDES,
+                  TITULO
+                
 FROM DH_GESTUDIANTE
 WHERE   (:institucion IS NULL OR LOWER(INSTITUCION) LIKE LOWER('%' || :institucion || '%'))
     AND (:area IS NULL OR LOWER(AREA_1) LIKE LOWER('%' || :area || '%'))
@@ -25,20 +42,13 @@ WHERE   (:institucion IS NULL OR LOWER(INSTITUCION) LIKE LOWER('%' || :instituci
     AND (:gestion IS NULL OR LOWER(GESTION) LIKE LOWER('%' || :gestion || '%'))
     AND (:modalidad IS NULL OR LOWER(MODALIDAD) LIKE LOWER('%' || :modalidad || '%'))
     AND (:franjaHoraria IS NULL OR LOWER(FRANJA_HORARIA) LIKE LOWER('%' || :franjaHoraria || '%'))
-    AND (:duracion IS NULL OR LOWER(DURACION) LIKE LOWER('%' || :duracion || '%'));
+    AND (:duracion IS NULL OR LOWER(DURACION) LIKE LOWER('%' || :duracion || '%'))
+    AND(:NOMBRE)
+    ;
         `, {
             type: QueryTypes.SELECT,
-            replacements: {
-                institucion: formData.institucion || null,
-                area: formData.area || null,
-                subarea: formData.subarea || null,
-                espacioFormativo: formData.espacioFormativo || null,
-                gestion: formData.gestion || null,
-                modalidad: formData.modalidad || null,
-                franjaHoraria: formData.franjaHoraria || null,
-                duracion: formData.duracion || null,
-            },
-            logging: false,
+            replacements: cleanData,
+            logging: true,
         });
 
         res.status(200).send(result);
