@@ -10,9 +10,6 @@ const getHorarios = async (req, res) => {
         FROM DH_GESTUDIANTE
         WHERE trim(AREA_1) = :keyword AND SUBAREA_1 IS NOT NULL;`,
 
-
-
-
         {
                 type: QueryTypes.SELECT,
                 replacements: { keyword },
