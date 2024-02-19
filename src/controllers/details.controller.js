@@ -8,7 +8,7 @@ const getDetails = async (req, res) => {
 
         const result = await sequelize.query(`
             SELECT DISTINCT 
-                NOMBRE,
+                TITULO,
                 ESPACIO_FORMATIVO,
                 AREA_1,
                 INSTITUCION,
@@ -16,11 +16,13 @@ const getDetails = async (req, res) => {
                 MODALIDAD,              
                 DURACION,
                 FRANJA_HORARIA,
-                nivel,
-                contacto,
-                mail,
-                web,
-                redes
+                NIVEL,
+                MAIL,
+                WEB,
+                REDES,
+                CALLE,
+                LOCALIDAD,
+                CONTACTO
                 
             FROM DH_GESTUDIANTE
             

@@ -1,5 +1,5 @@
-const { sequelize } = require("../model/connect/dataBase.js");
-const { QueryTypes } = require("sequelize");
+const {sequelize} = require("../model/connect/dataBase.js");
+const {QueryTypes} = require("sequelize");
 
 const searchController = async (req, res) => {
     const formData = req.query;
@@ -51,21 +51,21 @@ const searchController = async (req, res) => {
             `,
             {
                 replacements: {
-                    nombre: formData.nombre,
-                    espacioFormativo: formData.espacioFormativo,
-                    institucion: formData.institucion,
-                    area: formData.area,
-                    subarea: formData.subarea,
-                    gestion:  formData.gestion,
-                    modalidad: formData.modalidad,
-                    duracion: formData.duracion
+                    nombre: formData.nombre || '',
+                    espacioFormativo: formData.espacioFormativo || '',
+                    institucion: formData.institucion || '',
+                    area: formData.area || '',
+                    subarea: formData.subarea || '',
+                    gestion: formData.gestion || '',
+                    modalidad: formData.modalidad || '',
+                    duracion: formData.duracion || ''
                 },
                 type: QueryTypes.SELECT,
                 logging: false,
             }
         );
 
-        res.status(200).json({ resultados: result });
+        res.status(200).json({resultados: result});
     } catch (error) {
         console.error(error);
         res.status(500).send('Error en la búsqueda');

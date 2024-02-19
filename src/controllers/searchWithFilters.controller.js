@@ -1,7 +1,6 @@
 const { sequelize } = require("../model/connect/dataBase.js");
 const { QueryTypes } = require("sequelize");
 
-
 const getSearchWithFilters = async (req, res) => {
     try {
         const formData = req.query;  // Utiliza formData directamente del cuerpo del formulario
