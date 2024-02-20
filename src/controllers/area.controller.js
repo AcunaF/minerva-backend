@@ -2,6 +2,7 @@ const { sequelize } = require("../model/connect/dataBase.js");
 const { QueryTypes } = require("sequelize");
 //ok
 const getArea = async (req, res) => {
+
     try {
         const result = await sequelize.query(
             `  SELECT DISTINCT TRIM(UPPER(AREA_1)) AS area

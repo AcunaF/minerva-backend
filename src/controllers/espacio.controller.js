@@ -8,7 +8,7 @@ const getEspacio = async (req, res) => {
 
         const result = await sequelize.query(
             ` 
-          SELECT ESPACIO_FORMATIVO 
+          SELECT DISTINCT ESPACIO_FORMATIVO 
         FROM DH_GESTUDIANTE
         WHERE NLSSORT(UPPER(AREA_1), 'NLS_SORT=BINARY_AI') LIKE '%' || NLSSORT(UPPER(:area), 'NLS_SORT=BINARY_AI') || '%'
         AND NLSSORT(UPPER(SUBAREA_1), 'NLS_SORT=BINARY_AI') LIKE '%' || NLSSORT(UPPER(:subarea), 'NLS_SORT=BINARY_AI') || '%'

@@ -6,7 +6,7 @@ const getSubA = async (req, res) => {
         const { area } = req.query;
 
         const result = await sequelize.query(
-            `SELECT DISTINCT SUBAREA AS VAL, SUBAREA AS DIS
+            `SELECT  SUBAREA AS VAL, SUBAREA AS DIS
             FROM (
                 SELECT DISTINCT AREA_1 AS AREA, SUBAREA_1 AS SUBAREA
                 FROM DH_GESTUDIANTE
