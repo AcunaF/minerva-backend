@@ -35,3 +35,37 @@ const getSubA = async (req, res) => {
 module.exports = {
     getSubA,
 };
+
+/*
+const getSubA = async (req, res) => {
+    try {
+        const { area, institution } = req.query;
+
+        const result = await sequelize.query(
+            `SELECT  SUBAREA AS VAL, SUBAREA AS DIS
+            FROM (
+                SELECT DISTINCT AREA_1 AS AREA, SUBAREA_1 AS SUBAREA, INSTITUCION
+                FROM DH_GESTUDIANTE
+                UNION
+                SELECT DISTINCT AREA_2, SUBAREA_2, INSTITUCION
+                FROM DH_GESTUDIANTE
+                UNION
+                SELECT DISTINCT AREA_3, SUBAREA_3, INSTITUCION
+                FROM DH_GESTUDIANTE
+            )
+            WHERE AREA = :area AND INSTITUCION = :institution`,
+            {
+                type: QueryTypes.SELECT,
+                replacements: { area, institution },
+                logging: false,
+            }
+        );
+
+        res.status(200).send(result);
+    } catch (error) {
+        console.error("Error al obtener SUBAREA: ", error);
+        res.status(500).json({ error: "Error al obtener SUBAREA" });
+    }
+};
+
+*/

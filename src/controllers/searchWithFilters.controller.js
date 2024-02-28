@@ -4,10 +4,12 @@ const { QueryTypes } = require("sequelize");
 const getSearchWithFilters = async (req, res) => {
     try {
         const formData = req.query;  // Utiliza formData directamente del cuerpo del formulario
-
+        console.log('formDataBAck',formData)
         const result = await sequelize.query(`
             SELECT DISTINCT 
+                nombre,
                 institucion, 
+                nivel,
                 area_1, 
                 subarea_1, 
                 espacio_formativo, 
@@ -17,6 +19,8 @@ const getSearchWithFilters = async (req, res) => {
                 duracion
             FROM DH_GESTUDIANTE
             WHERE 
+                LOWER (nombre) LIKE LOWER('%' || :nombre || '%')
+                AND 
                 LOWER(institucion) LIKE LOWER('%' || :institucion || '%')
                 AND LOWER(area_1) LIKE LOWER('%' || :area || '%')
                 AND (
@@ -27,23 +31,25 @@ const getSearchWithFilters = async (req, res) => {
                 AND LOWER(gestion) LIKE LOWER('%' || :gestion || '%')
                 AND LOWER(modalidad) LIKE LOWER('%' || :modalidad || '%')
                 AND LOWER(franja_horaria) LIKE LOWER('%' || :franjaHoraria || '%')
-                AND LOWER(duracion) LIKE LOWER('%' || :duracion || '%')
+                AND LOWER(duracion) LIKE LOWER('%' || :duracion || '%') 
             ORDER BY 1
         `, {
             type: QueryTypes.SELECT,
             replacements: {
+                nombre: formData.nombre || null,
+                nivel: formData.nivel || null,
                 institucion: formData.institucion || null,
-                area: formData.area || null,
-                subarea: formData.subarea || null,
+                area: formData.Area || null,
+                subarea: formData.subArea || null,
                 espacioFormativo: formData.espacioFormativo || null,
                 gestion: formData.gestion || null,
                 modalidad: formData.modalidad || null,
                 franjaHoraria: formData.franjaHoraria || null,
-                duracion: formData.duracion || null
+                duracion: formData.duracion || null,
+
             },
             logging: false,
         });
-
         res.status(200).send(result);
     } catch (error) {
         console.error("Error al obtener filtros: ", error);

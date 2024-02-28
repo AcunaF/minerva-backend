@@ -20,7 +20,7 @@ const searchController = async (req, res) => {
                 nvl(modalidad, ' ')         AS modalidad,
                 nvl(duracion, ' ')          AS duracion   
             FROM
-                DH_GESTUDIANTE
+                DH_GESTUDIANTEnpm 
 
             WHERE    
                 INSTR(TRANSLATE(NOMBRE, 'áéíóúüÁÉÍÓÚÜ', 'aeiouuAEIOUU'), NVL(UPPER(:nombre), TRANSLATE(NOMBRE, 'áéíóúüÁÉÍÓÚÜ', 'aeiouuAEIOUU'))) > 0 
@@ -53,6 +53,7 @@ const searchController = async (req, res) => {
                 replacements: {
                     nombre: formData.nombre || '',
                     espacioFormativo: formData.espacioFormativo || '',
+                    nivel: formData.nivel || '',
                     institucion: formData.institucion || '',
                     area: formData.area || '',
                     subarea: formData.subarea || '',
