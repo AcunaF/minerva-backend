@@ -38,14 +38,16 @@ const getDetails = async (req, res) => {
             type: QueryTypes.SELECT,
             replacements: {
                 institucion: formDataDetail.institucion,
+                nombre: formDataDetail.nombre,
                 area: formDataDetail.area,
+                subarea: formDataDetail.subarea,
                 espacioFormativo: formDataDetail.espacioFormativo,
+                gestion: formDataDetail.gestion,
                 modalidad: formDataDetail.modalidad,
                 franjaHoraria: formDataDetail.franjaHoraria,
-                gestion: formDataDetail.gestion,
-                nombre: formDataDetail.nombre,
+
             },
-            logging: false
+            logging: false,
         });
 
         res.status(200).send(result);

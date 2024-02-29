@@ -1,12 +1,11 @@
 const { sequelize } = require("../model/connect/dataBase.js");
 const { QueryTypes } = require("sequelize");
-
 const getSearchWithFilters = async (req, res) => {
     try {
-        const formData = req.query;  // Utiliza formData directamente del cuerpo del formulario
+        const formData = req.query;
         console.log('formDataBAck',formData)
         const result = await sequelize.query(`
-            SELECT DISTINCT 
+            SELECT  
                 nombre,
                 institucion, 
                 nivel,
@@ -17,21 +16,31 @@ const getSearchWithFilters = async (req, res) => {
                 modalidad, 
                 franja_horaria, 
                 duracion
+                
             FROM DH_GESTUDIANTE
-            WHERE 
+            
+            WHERE            
                 LOWER (nombre) LIKE LOWER('%' || :nombre || '%')
-                AND 
-                LOWER(institucion) LIKE LOWER('%' || :institucion || '%')
-                AND LOWER(area_1) LIKE LOWER('%' || :area || '%')
-                AND (
-                    LOWER(subarea_1) LIKE LOWER('%' || :subarea || '%') 
-                    OR LOWER(subarea_2) LIKE LOWER('%' || :subarea || '%')
-                )
-                AND LOWER(espacio_formativo) LIKE LOWER('%' || :espacioFormativo || '%')
-                AND LOWER(gestion) LIKE LOWER('%' || :gestion || '%')
+                AND LOWER(institucion) LIKE LOWER('%' || :institucion || '%')
+                AND LOWER(nivel) LIKE LOWER('%' || :nivel || '%')                
+                AND (:area IS NULL OR (LOWER(AREA_1) LIKE LOWER('%' || :area || '%') OR LOWER(AREA_2) LIKE LOWER('%' || :area || '%') OR LOWER(AREA_3) LIKE LOWER('%' || :area || '%')))                              
+                AND (:subarea IS NULL OR (LOWER(SUBAREA_1) LIKE LOWER('%' || :subarea || '%') OR LOWER(SUBAREA_2) LIKE LOWER('%' || :subarea || '%')))
+                AND LOWER(espacio_formativo) LIKE LOWER('%' || :espacioFormativo || '%')    
+           /*       AND LOWER(gestion) LIKE LOWER('%' || :gestion || '%')
                 AND LOWER(modalidad) LIKE LOWER('%' || :modalidad || '%')
+                 AND LOWER(franja_horaria) LIKE LOWER('%' || :franjaHoraria || '%')
+           AND LOWER(espacio_formativo) LIKE LOWER('%' || :espacioFormativo || '%')
+                AND LOWER(duracion) LIKE LOWER('%' || :duracion || '%')*/
+            /*    
+            E 
+                
+                AND LOWER(area_2) LIKE LOWER('%' || :area || '%')                                         
+
+                AND LOWER(modalidad) LIKE LOWER('%' || :modalidad || '%')
+                OR LOWER(subarea_2) LIKE LOWER('%' || :subarea || '%'))
+                AND LOWER(nivel) LIKE LOWER('%' || :nivel || '%')              
                 AND LOWER(franja_horaria) LIKE LOWER('%' || :franjaHoraria || '%')
-                AND LOWER(duracion) LIKE LOWER('%' || :duracion || '%') 
+                AND LOWER(duracion) LIKE LOWER('%' || :duracion || '%') */
             ORDER BY 1
         `, {
             type: QueryTypes.SELECT,
