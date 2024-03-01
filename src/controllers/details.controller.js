@@ -7,7 +7,7 @@ const getDetails = async (req, res) => {
         const formDataDetail = req.query;
 
         const result = await sequelize.query(`
-            SELECT DISTINCT 
+            SELECT  
                 TITULO,
                 ESPACIO_FORMATIVO,
                 AREA_1,
@@ -21,7 +21,7 @@ const getDetails = async (req, res) => {
                 WEB,
                 REDES,
                 CALLE,
-                LOCALIDAD,
+                PUERTA,
                 CONTACTO
                 
             FROM DH_GESTUDIANTE
